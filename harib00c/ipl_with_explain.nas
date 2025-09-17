@@ -1,15 +1,15 @@
 ; 	haribote-ipl
 ; 	TAB = press 2 TAB(one TAB is 8 space)
-;	16位寄存器  AX累加寄存器 CX计数寄存器 DX数据寄存器 BX基址寄存器 SP栈指针寄存器 BP基址指针寄存器 SI源变址寄存器 DI目的变址寄存器
-;	8位寄存器   AL累加寄存器低位 CL计数寄存器低位 DL数据寄存器低位 BL基址寄存器低位 AH累加寄存器高位 CH计数寄存器高位 DH数据寄存器高位 BH基址寄存器高位
-;	16位段寄存器 ES附加段寄存器 CS代码段寄存器 SS栈段寄存器 DS数据段寄存器 FS段寄存器2 GS段寄存器3
+;	16位寄存器: AX累加寄存器 CX计数寄存器 DX数据寄存器 BX基址寄存器 SP栈指针寄存器 BP基址指针寄存器 SI源变址寄存器 DI目的变址寄存器
+;	8位寄存器:  AL累加寄存器低位 CL计数寄存器低位 DL数据寄存器低位 BL基址寄存器低位 AH累加寄存器高位 CH计数寄存器高位 DH数据寄存器高位 BH基址寄存器高位
+;	16位段寄存器:ES附加段寄存器 CS代码段寄存器 SS栈段寄存器 DS数据段寄存器 FS段寄存器2 GS段寄存器3
 
 		ORG		0x7c00		;程序装载到内存预留的起始地址处
 
 ; 	FAT12软盘专用的代码
 		JMP 	entry
 		DB		0x90		
-; 	对比可以发现,这里其实发生了改变,但却不影响运行,是因为这些都只是磁盘信息,只要在合理范围内即可,CPU不会把他们当作命令执行
+; 	对比可以发现，这里其实发生了改变，但却不影响运行，是因为这些都只是磁盘信息，只要在合理范围内即可，CPU不会把他们当作命令执行
 		DB		"HARIBOTE"		
 		DW		512				
 		DB		1				
@@ -37,7 +37,7 @@ entry:
 		MOV		DS,AX
 
 		MOV		AX,0x0820	;AX=0x02(读盘),0x03(写盘),0x04(校验),0x0c(寻道)...
-		MOV		ES,AX		;ES:BX = 缓冲地址(INT 0x13调用中,实际地址为ES*16+BX),即将磁盘内容读到第ES:BX-ES:BX+511(共512字节)内存地址中
+		MOV		ES,AX		;ES:BX = 缓冲地址(INT 0x13调用中,实际地址为ES*16+BX)，即将磁盘内容读到第ES:BX-ES:BX+511(共512字节)内存地址中
 		MOV		CH,0		;柱面0
 		MOV		DH,0		;磁头0
 		MOV		CL,2		;扇区2
@@ -64,8 +64,8 @@ retry:
 next:
 		MOV 	AX,ES
 		ADD 	AX,0x0020
-		MOV 	ES,AX			;没有ADD ES,0x0020 指令,所以用AX完成
-		ADD 	CL,1			;储存当前读取的扇区号
+		MOV 	ES,AX			;没有ADD ES,0x0020 指令，所以用AX完成
+		ADD 	CL.1			;储存当前读取的扇区号
 		CMP 	CL,18
 		JBE 	readloop		;JBE(jump if below or equal) 当CL<=18时跳转
 		
@@ -76,7 +76,7 @@ fin:
 error:
 		MOV SI,msg
 		
-; 	汇编语言中代码是顺序执行的,除非有跳转,所以即使没有显示调用putloop,也会运行putloop,有输出(在helloos5及之前)
+; 	汇编语言中代码是顺序执行的，除非有跳转，所以即使没有显示调用putloop，也会运行putloop，有输出(在helloos5及之前)
 
 putloop:
 		MOV		AL,[SI]
