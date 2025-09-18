@@ -78,6 +78,7 @@ next:
 		CMP		CH,CYLS			;CYLS=10,定义:CYLS EQU 10
 		JB		readloop
 		
+		mov 	[0x0ff0],CH		;将CYLS的值(经过之前的程序,CYLS=CH)储存到0x0ff0处作系统结束标志，读到CYLS的值算作结束?
 		JMP 	0xc200			;跳转到系统文件处(在内存中的地址)执行，不写的话CPU最多顺序执行到0x7e00处就结束了
 		
 error:

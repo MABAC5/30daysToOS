@@ -1,3 +1,3 @@
 fin:
 	HLT
-	jmp fin
+	JMP fin

@@ -78,10 +78,11 @@ next:
 		CMP		CH,CYLS			;CYLS=10,定义:CYLS EQU 10
 		JB		readloop
 		
+		mov 	[0x0ff0],CH		;将CYLS的值(经过之前的程序,CYLS=CH)储存到0x0ff0处作系统结束标志，读到CYLS的值算作结束?
 		JMP 	0xc200			;跳转到系统文件处(在内存中的地址)执行，不写的话CPU最多顺序执行到0x7e00处就结束了
 		
 error:
-		MOV SI,msg
+		MOV 	SI,msg
 		
 ; 	汇编语言中代码是顺序执行的,除非有跳转,所以即使没有显示调用putloop,也会运行putloop,有输出(在helloos5及之前)
 

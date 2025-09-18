@@ -21,3 +21,7 @@ harib00c:目前只能读取一个磁盘第0柱面的1-18扇区。
 harib00d:目前可以读取磁盘的所有柱面。
 更新代码:
 ![img](readme_pics/harib00d_new_code.png)
+
+harib00e:制作了简单的试验系统
+
+harib00f:可以利用启动区启动简单的试验系统
