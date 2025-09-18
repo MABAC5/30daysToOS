@@ -78,9 +78,7 @@ next:
 		CMP		CH,CYLS			;CYLS=10,定义:CYLS EQU 10
 		JB		readloop
 		
-fin:
-		HLT
-		JMP		fin
+		JMP 	0xc200			;跳转到系统文件处(在内存中的地址)执行，不写的话CPU最多顺序执行到0x7e00处就结束了
 		
 error:
 		MOV SI,msg
