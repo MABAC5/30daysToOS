@@ -10,3 +10,6 @@ harib00x是当前的进度，在harib00x中，点击!cons\_nt.bat并输入make r
 
 harib00c:目前只能读取一个磁盘第0柱面的1-18扇区。
 
+harib00d:目前可以读取磁盘的所有柱面。
+更新代码:
+![img](readme_pics/harib00d_new_code.png)
