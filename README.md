@@ -6,7 +6,15 @@ harib00x是当前的进度，在harib00x中，点击!cons\_nt.bat并输入make r
 
 如果自动打开的窗口如上，就说明运行成功了
 
+!cons\_nt.bat支持命令可在MakeFile内查看，常用的几个有:
 
+1.make run 自动编译并运行ipl.nas
+
+2.make src_only 保留harib00x内的源文件，删除由make run等命令产生的其他文件
+
+3.make install 将编译完成的ipl.img件写入磁盘中(也就是向磁盘内安装此操作系统)，需要电脑插入磁盘(软盘)，会清空软盘内原有文件
+
+更新目录:
 
 harib00c:目前只能读取一个磁盘第0柱面的1-18扇区。
 
