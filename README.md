@@ -1,6 +1,6 @@
 done\_folder内存储的是之前的进度
 
-harib00x是当前的进度，在harib00x中，点击!cons\_nt.bat并输入make run后会自动编译并运行ipl.nas
+haribxxx是当前的进度，在haribxxx中，点击!cons\_nt.bat并输入make run后会自动编译并运行ipl.nas
 
 ![img](https://github.com/MABAC5/30daysToOS/blob/main/readme\_pics/QEMU.png)
 
