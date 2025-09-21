@@ -5,6 +5,7 @@
 ;	16位段寄存器 ES附加段寄存器 CS代码段寄存器 SS栈段寄存器 DS数据段寄存器 FS段寄存器2 GS段寄存器3
 
 CYLS	EQU		10			;定义CYLS=10
+
 		ORG		0x7c00		;程序装载到内存预留的起始地址处
 
 ; 	FAT12软盘专用的代码
@@ -34,7 +35,7 @@ CYLS	EQU		10			;定义CYLS=10
 entry:
 		MOV		AX,0		;初始化寄存器
 		MOV		SS,AX		
-		MOV		SP,0X7c00
+		MOV		SP,0x7c00
 		MOV		DS,AX
 
 		MOV		AX,0x0820	;AX=0x02(读盘),0x03(写盘),0x04(校验),0x0c(寻道)...
@@ -95,6 +96,9 @@ putloop:
 		MOV		BX,15
 		INT		0x10
 		JMP		putloop
+fin:
+		HLT
+		JMP		fin
 		
 msg:
 		DB		0x0a,0x0a
