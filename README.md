@@ -27,3 +27,5 @@ harib00e:制作了简单的试验系统
 harib00f:可以利用启动区启动简单的试验系统
 
 harib00g:现在启动试验系统会得到黑屏窗口，并发现了一个Makefile的bug，在输入make run时，Makefile似乎并不能很好的构建所需文件，需要输入2次make run(或已有中间文件时只需输入一次)才可运行。
+
+已修复Makefile的bug，bug原因似乎在于Makefile文件中错误将输出的ipl10.bin输出为了ip10.bin
