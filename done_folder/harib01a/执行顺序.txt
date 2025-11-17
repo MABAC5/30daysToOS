@@ -1,0 +1,16 @@
+1.ipl10.nas
+ORG 0x7c00，这是启动区位置，磁盘会将0x7c00 - 0x7dff这512字节(第一个扇区)读入内存并执行
+这段程序的功能是读入磁盘的部分扇区(磁头,柱面)到内存中(操作系统需要的部分)，在程序结束时JMP 0xc200
+
+2.asmhead.nas
+ORG 0xc200，也就是ipl10.nas执行完毕后跳转到asmhead.nas开始执行(asmhead.nas的指令要按顺序依次写，如果指令在中间中断了，那么系统的启动过程也就结束了)
+这段程序主要引入了C语言(具体怎么做的不知道)，程序的最后有bootpack，这是一个标记，表示这后面会执行由 bootpack.c 编译生成的代码。
+
+3.bootpack.c，naskfunc.nas
+在链接过程，
+bootpack.bim : bootpack.obj naskfunc.obj Makefile
+haribote.sys : asmhead.bin bootpack.hrb Makefile
+会将这几个文件链接在一起，从而实现执行
+程序主入口在bootpack.c中(HariMain函数，猜测是由asmhead.nas指定的)，在主函数中，有些功能需要用汇编语言实现，由naskfunc.nas实现。
+
+经过1->2->3实现从读取磁盘内容到系统(HariMain函数)的启动
